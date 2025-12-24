@@ -1,0 +1,1798 @@
+/* Collaborator Page */
+.collaborator-page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  padding: 2rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 1rem;
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.loading-container .spinner {
+  width: 5rem;
+  height: 5rem;
+  border: 4.5px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Avatar de colaborador */
+.profile-avatar.collaborator {
+  background: var(--color-secondary);
+}
+
+/* Badge de rol */
+.menu-user-role {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.collaborator-badge {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+/* Contenido principal */
+.collaborator-main {
+  max-width: 1000px;
+  margin: 2rem auto 0;
+}
+
+.collaborator-welcome {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.role-icon {
+  width: 100px;
+  height: 100px;
+  background: var(--color-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: white;
+}
+
+.collaborator-welcome h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.collaborator-welcome p {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Estadísticas */
+.collaborator-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.stat-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary);
+}
+
+.stat-item svg {
+  color: var(--color-secondary);
+  flex-shrink: 0;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-info h3 {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-money {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-success);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-subtext {
+  font-size: 0.85rem;
+  color: var(--color-text-lighter);
+}
+
+/* Tabs Container */
+.tabs-container {
+  background: var(--color-surface);
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.tabs-header {
+  display: flex;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab-button {
+  flex: 1;
+  padding: 1.25rem;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.tab-button:hover {
+  background: var(--color-surface-light);
+  color: var(--color-text);
+}
+
+.tab-button.active {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-secondary);
+}
+
+.tab-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Contenido de Tabs */
+.tabs-content {
+  padding: 2rem;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-pane {
+  width: 100%;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.empty-state svg {
+  color: var(--color-text-lighter);
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+.empty-state h3 {
+  color: var(--color-text);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: var(--color-text-light);
+  max-width: 500px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.empty-note {
+  font-size: 0.9rem;
+  color: var(--color-secondary);
+  font-style: italic;
+  background: rgba(6, 182, 212, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-top: 1.5rem !important;
+}
+
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1rem;
+}
+
+.collab-question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.collab-question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+.collab-question-header h4 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.collab-question-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.meta-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  background: var(--color-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+}
+
+.collab-question-info {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.collab-question-info p {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  margin-bottom: 0.5rem;
+}
+
+.existing-answers {
+  background: rgba(59, 130, 246, 0.05);
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.answers-preview {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.answer-form {
+  margin-top: 1rem;
+}
+
+.answer-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 0.75rem;
+}
+
+.answer-form textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-cancel, .btn-submit, .btn-responder {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel {
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn-submit {
+  background: var(--color-success);
+  border: 1px solid var(--color-success);
+  color: white;
+  flex: 1;
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-responder {
+  width: 100%;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-cancel:hover, .btn-submit:hover, .btn-responder:hover {
+  transform: translateY(-1px);
+}
+
+/* Historial de respuestas */
+.answers-history {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.history-question, .history-answer {
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.history-answer, .history-question{
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.history-question strong{
+  color: var(--color-warning);
+}
+
+.history-answer strong {
+  color: var(--color-success);
+}
+
+.history-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.meta-date {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.meta-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+}
+
+.meta-status.accepted {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.meta-status.pending {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+/* Previene la selección rápida */
+.answer-form textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 80px;
+  pointer-events: auto !important;
+}
+
+/* Asegura que el formulario no cierre */
+.answer-form {
+  pointer-events: auto;
+}
+
+/* Previene que el card cierre el formulario */
+.collab-question-card {
+  position: relative;
+}
+
+.btn-responder, .btn-cancel, .btn-submit {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-responder:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.already-responded {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.time-expired {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text-light);
+  background: rgba(148, 163, 184, 0.1);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.answer-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: border-color 0.2s;
+}
+
+.answer-form textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: var(--color-bg);
+}
+
+.btn-submit {
+  flex: 2;
+  padding: 0.5rem;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-responder {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-responder:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Para evitar el parpadeo */
+.collab-question-card {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Estilos para respuestas de colaboradores */
+.collab-existing-answers {
+  margin-top: 1rem;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.answers-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.collab-answer-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+.collab-answer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.collab-answer-author {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.collab-answer-author:contains("(Tú)") {
+  color: var(--color-primary);
+}
+
+.collab-answer-time {
+  font-size: 0.7rem;
+  color: var(--color-text-lighter);
+}
+
+.collab-answer-content {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Para el historial de respuestas - quitar "Pendiente" */
+.history-meta .meta-status.pending {
+  display: none;
+}
+
+.history-meta .meta-status.accepted {
+  font-size: 0.7rem;
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .collaborator-page {
+    padding: 1rem;
+  }
+  
+  .collaborator-welcome h1 {
+    font-size: 2rem;
+  }
+  
+  .collaborator-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .tab-button {
+    padding: 1rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .tabs-content {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs-header {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    padding: 1rem;
+  }
+  
+  .tab-button.active::after {
+    height: 0;
+  }
+  
+  .tab-button.active {
+    background: var(--color-secondary);
+    color: white;
+  }
+}
+
+/* Estilos existentes... */
+
+/* Botón de responder - eliminar margin-top */
+.btn-responder {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  /* REMOVER: margin-top: 1rem; */
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.btn-responder:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Formulario de respuesta */
+.answer-form {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  width: 100%;
+  align-items: stretch; /* Asegura que ambos botones tengan la misma altura */
+}
+
+/* Spinner para botón de enviar */
+.btn-submit .spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive para preguntas */
+.collab-question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.collab-question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.collab-question-header {
+  margin-bottom: 1rem;
+}
+
+.collab-question-header h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.collab-question-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.meta-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  background: var(--color-bg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--color-border-light);
+}
+
+.collab-question-info {
+  margin-bottom: 1rem;
+}
+
+.respuestas-count {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+/* Estilos para respuestas de colaboradores */
+.collab-existing-answers {
+  margin-top: 1rem;
+  background: var(--color-surface-light);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+}
+
+.answers-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.answers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.collab-answer-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.375rem;
+  padding: 0.75rem;
+}
+
+.collab-answer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.collab-answer-author {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.collab-answer-author:contains("(Tú)") {
+  color: var(--color-primary);
+}
+
+.collab-answer-time {
+  font-size: 0.7rem;
+  color: var(--color-text-lighter);
+}
+
+.collab-answer-content {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Estados */
+.already-responded,
+.time-expired {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.already-responded {
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.time-expired {
+  color: var(--color-text-light);
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* Grid de preguntas */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .questions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .questions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .collab-question-card {
+    padding: 1.25rem;
+  }
+  
+  .collab-question-header h4 {
+    font-size: 1rem;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .questions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .collab-question-card {
+    padding: 1rem;
+  }
+  
+  .collab-question-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .collab-question-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .collab-answer-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  /* Para formularios en móviles pequeños */
+  .answer-form textarea {
+    font-size: 16px; /* Previene zoom en iOS */
+  }
+  
+  .form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn-submit {
+    order: -1; /* Poner el botón de enviar arriba */
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .collab-question-card {
+    padding: 0.75rem;
+  }
+  
+  .collab-question-header h4 {
+    font-size: 0.95rem;
+  }
+  
+  .meta-tag {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+  }
+  
+  .answers-list {
+    max-height: 150px;
+  }
+}
+
+/* Para el historial de respuestas */
+.history-meta .meta-status.pending {
+  display: none;
+}
+
+.history-meta .meta-status.accepted {
+  font-size: 0.7rem;
+  color: var(--color-success);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+}
+
+/* Para el panel de pestañas */
+.tabs-container {
+  width: 100%;
+}
+
+.tabs-content {
+  width: 100%;
+}
+
+.tab-pane {
+  width: 100%;
+}
+
+/* Para el grid en diferentes tamaños */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .questions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .questions-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Scrollbar personalizado */
+.answers-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.answers-list::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: 2px;
+}
+
+.answers-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+.answers-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-light);
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  min-height: 44px; /* Altura mínima para touch */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: var(--color-bg);
+}
+
+.btn-submit {
+  flex: 2;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  min-height: 44px; /* Altura mínima para touch */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-submit .spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Botón de responder principal */
+.btn-responder {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-height: 44px; /* Altura mínima para touch */
+}
+
+.btn-responder:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* CORRECCIONES RESPONSIVE ESPECÍFICAS */
+
+/* Para móviles grandes (hasta 768px) - flex column */
+@media (max-width: 768px) {
+  .form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+    flex: none; /* Elimina flex:1 y flex:2 */
+    order: 0; /* Reset order */
+  }
+  
+  /* Asegurar que el botón de enviar esté primero */
+  .btn-submit {
+    order: -1;
+  }
+}
+
+/* Para móviles medianos (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+  }
+  
+  /* Asegurar alineación vertical */
+  .btn-cancel,
+  .btn-submit {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Para tablets (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .form-actions {
+    flex-direction: row; /* Mantener en fila */
+    gap: 0.75rem;
+  }
+  
+  .btn-cancel {
+    flex: 1;
+  }
+  
+  .btn-submit {
+    flex: 2;
+  }
+  
+  /* Asegurar misma altura */
+  .btn-cancel,
+  .btn-submit {
+    padding: 0.75rem 1rem;
+    height: auto;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Para escritorio (más de 1024px) */
+@media (min-width: 1025px) {
+  .form-actions {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+  
+  .btn-cancel {
+    flex: 1;
+  }
+  
+  .btn-submit {
+    flex: 2;
+  }
+  
+  /* Asegurar alineación perfecta */
+  .btn-cancel,
+  .btn-submit {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    height: auto;
+    line-height: 1.4;
+  }
+}
+
+/* Para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn-cancel,
+  .btn-submit {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+  
+  .btn-submit {
+    order: -1;
+    margin-bottom: 0;
+  }
+  
+  .btn-cancel {
+    margin-top: 0;
+  }
+  
+  /* Ajustar texto de botones en móviles pequeños */
+  .btn-submit span,
+  .btn-cancel {
+    font-size: 0.9rem;
+  }
+}
+
+/* Eliminar cualquier margin-top que cause desalineación */
+.btn-responder,
+.already-responded,
+.time-expired {
+  margin-top: 1rem; /* Solo un margin-top consistente */
+}
+
+/* Asegurar que los botones tengan el mismo estilo base */
+.btn-cancel:active,
+.btn-submit:active,
+.btn-responder:active {
+  transform: translateY(0);
+}
+
+/* Estados hover consistentes */
+.btn-cancel:hover:not(:disabled),
+.btn-submit:hover:not(:disabled),
+.btn-responder:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Eliminar duplicados y conflictos */
+/* Busca y elimina cualquier otra regla que afecte a .btn-cancel o .btn-submit */
+
+/* Grid de preguntas ajustado */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .questions-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .questions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) {
+  .questions-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+.btn-submit{
+  margin-top: 0;
+}
+
+/* Estilos para la imagen de la pregunta */
+.collab-question-image-container {
+  margin: 12px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.collab-question-image-container:hover {
+  transform: translateY(-2px);
+}
+
+.collab-question-image {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e1e4e8;
+  transition: all 0.3s ease;
+}
+
+.collab-question-image:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: scale(1.02);
+}
+
+.image-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+.collab-image-error {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  text-align: center;
+  color: #dc3545;
+  font-size: 14px;
+  border: 1px dashed #dc3545;
+}
+
+/* Ajustar el header para acomodar la imagen */
+.collab-question-header h4 {
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.collab-question-meta {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e1e4e8;
+}
+
+@media (max-width: 768px) {
+  .collab-question-image {
+    max-height: 150px;
+  }
+  
+  .collab-question-header {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collab-question-image {
+    max-height: 120px;
+  }
+}
+
+/* Estilo para el hint del tiempo */
+.meta-tag.hint {
+  background-color: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  font-size: 0.8rem;
+  cursor: help;
+}
+
+.meta-tag.hint:hover {
+  background-color: #e0f2fe;
+}
+
+/* Estilo para el contador de respuestas */
+.respuestas-count {
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+/* Estilos para Colaborador Pro */
+.pro-badge-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.pro-badge-header .pro-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Estilos para CollaboratorPage.css - añadir esto */
+.collaborator-pro-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-left: 6px;
+}
+
+/* Estilos para QuestionsList.css - añadir esto */
+.pro-badge-answer {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    margin-left: 6px;
+    text-transform: uppercase;
+}
+
+.collab-pro-badge {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.collab-answer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+/* Agrega esto al CSS */
+.max-respuestas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.max-respuestas svg {
+  color: #dc3545;
+}
+
+.collab-question-info .respuestas-count.max-alcanzado {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* Estilos para máximo de respuestas */
+.max-respuestas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background-color: #ffcdcd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  color: #856404;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.max-respuestas svg {
+  color: #856404;
+}
+
+.max-respuestas-note {
+  font-size: 0.8rem;
+  color: #856404;
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Botón deshabilitado para máximo respuestas */
+.btn-responder:disabled {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  cursor: not-allowed !important;
+  border-color: #dee2e6 !important;
+  opacity: 0.7;
+}
+
+/* Resaltar cuando está cerca del límite */
+.collab-question-info .respuestas-count.cerca-limite {
+  color: #ffc107;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+.collab-question-info .respuestas-count.max-alcanzado {
+  color: #dc3545;
+  font-weight: bold;
+  background-color: #f8d7da;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Estilo para última oportunidad */
+.btn-responder:not(:disabled).ultima-oportunidad {
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+  animation: pulse 1.5s infinite;
+}
+
+/* 🔥 ESTILOS PARA FILTROS */
+.filtros-container {
+  background-color: transparent;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 1px solid var(--color-border-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filtros-header h3 {
+  margin: 0 0 5px 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.filtros-header p {
+  margin: 0 0 15px 0;
+  font-size: 0.9rem;
+}
+
+.filtros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  align-items: end;
+}
+
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filtro-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.filtro-item label svg {
+  color: var(--color-text);
+}
+
+.filtro-select {
+  padding: 10px 12px;
+  border: 1px solid var(--color-surface-light);
+  border-radius: 8px;
+  background-color: var(--color-surface);
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.filtro-select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filtro-select:hover {
+  border-color: #adb5bd;
+}
+
+/* select[className="filtro-select"] option{
+  background-color: var(--color-bg);
+}
+
+option[value="todas"]{
+  background-color: #000;
+} */
+
+.filtro-item.resultados {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.resultados-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resultados-numero {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+}
+
+.resultados-texto {
+  font-size: 0.85rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.btn-limpiar-filtros {
+  padding: 8px 16px;
+  background-color: var(--color-primary-dark);
+  color: var(--color-text);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-limpiar-filtros:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0px 0px 14px 0px var(--color-bg);
+}
+
+.btn-limpiar-filtros:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-limpiar-filtros:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* 🔴 ESTILOS ROJOS PARA MÁXIMO DE RESPUESTAS (TU SOLICITUD) */
+.max-respuestas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  border: 1px solid #ff4757;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.2);
+}
+
+.max-respuestas svg {
+  color: white;
+}
+
+.max-respuestas-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 5px;
+  font-style: italic;
+}
+
+/* Contador de respuestas en rojo cuando alcanza máximo */
+.collab-question-info .respuestas-count.max-alcanzado {
+  color: #ff4757;
+  font-weight: bold;
+  background-color: rgba(255, 71, 87, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid #ffcccc;
+}
+
+/* Botón deshabilitado en rojo */
+.btn-responder:disabled {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+  color: white !important;
+  cursor: not-allowed !important;
+  border: 1px solid #ff4757 !important;
+  opacity: 0.8;
+}
+
+/* Resaltar cuando está cerca del límite (4 respuestas) */
+.collab-question-info .respuestas-count.cerca-limite {
+  color: #ffa502;
+  font-weight: 600;
+  background-color: rgba(255, 165, 2, 0.1);
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid #ffd166;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* Estilo para última oportunidad */
+.btn-responder:not(:disabled).ultima-oportunidad {
+  background: linear-gradient(135deg, #ffa502 0%, #ff7f00 100%) !important;
+  animation: pulse 1.5s infinite;
+  border: 1px solid #ffa502 !important;
+}

@@ -1,0 +1,356 @@
+.dashboard-minimal {
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    padding: 2rem;
+}
+
+/* Header Minimalista */
+.dashboard-header-minimal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 3rem;
+}
+
+/* Menú desplegable */
+.profile-menu-wrapper {
+  position: relative;
+}
+
+.profile-menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-menu-toggle:hover {
+  background: var(--color-surface-light);
+  border-color: var(--color-primary);
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Menú desplegable */
+.profile-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  width: 250px;
+  background: var(--color-surface);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* Dashboard Loading */
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap: 1rem;
+  color: var(--color-text);
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.dashboard-loading .spinner {
+  width: 5rem;
+  height: 5rem;
+  border: 4.5px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Estado de error */
+.error-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--color-surface);
+  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.error-state h2 {
+  color: var(--color-danger);
+  margin-bottom: 1rem;
+}
+
+.error-state p {
+  color: var(--color-text-light);
+  margin-bottom: 2rem;
+}
+
+.retry-button {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.retry-button:hover {
+  background: var(--color-primary-dark);
+}
+
+/* Información del plan en el menú */
+.menu-user-plan {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  margin-top: 0.5rem;
+}
+
+.plan-badge {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Botón de logout simple para estado de error */
+.btn-logout-minimal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout-minimal:hover {
+  background: var(--color-surface-light);
+  color: var(--color-primary);
+}
+
+.menu-user-info {
+  padding: 1rem;
+  background: var(--color-bg);
+}
+
+.menu-user-name {
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.menu-user-email {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.menu-divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.menu-item:hover {
+  background: var(--color-surface-light);
+}
+
+.menu-item.logout {
+  color: var(--color-danger);
+}
+
+/* Contenido Principal */
+.main-content-minimal {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.main-title-minimal {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+/* Botón Grande */
+.big-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.big-question-button {
+  background: linear-gradient(135deg, var(--color-surface), var(--color-surface-light));
+  border: 2px solid var(--color-border);
+  border-radius: 1.5rem;
+  padding: 4rem 3rem;
+  width: 100%;
+  max-width: 600px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.big-question-button:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.plus-icon {
+  width: 100px;
+  height: 100px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.button-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.questions-counter {
+  font-size: 1rem;
+  color: var(--color-text-light);
+  background: var(--color-bg);
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  border: 1px solid var(--color-border);
+}
+
+/* Sección de Respuestas */
+.answers-section-simple {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.answers-section-simple h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.answers-subtitle-simple {
+  color: var(--color-text-light);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  text-wrap: pretty;
+}
+
+/* Responsive */
+@media (min-width: 1080px){
+  .main-content-minimal {
+    max-width: 1024px;
+  }
+}
+@media (max-width: 768px) {
+  .dashboard-minimal {
+    padding: 1rem;
+  }
+  
+  .main-title-minimal {
+    font-size: 2rem;
+  }
+  
+  .big-question-button {
+    padding: 3rem 2rem;
+  }
+  
+  .plus-icon {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .button-text {
+    font-size: 1.3rem;
+  }
+  
+  .profile-dropdown-menu {
+    right: 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-header-minimal {
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .main-title-minimal {
+    font-size: 1.8rem;
+  }
+  
+  .big-question-button {
+    padding: 2rem 1.5rem;
+  }
+  
+  .plus-icon {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .button-text {
+    font-size: 1.2rem;
+  }
+  
+  .profile-dropdown-menu {
+    width: 220px;
+  }
+}

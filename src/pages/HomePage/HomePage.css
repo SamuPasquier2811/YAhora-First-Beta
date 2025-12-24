@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Syncopate:wght@400;700&display=swap');
+
+/* PALETA MODO OSCURO MINIMALISTA */
+:root {
+    /* FONDOS OSCUROS */
+    --color-bg: #0F172A;
+    --color-surface: #1E293B;
+    --color-surface-light: #334155;
+    
+    /* COLORES PRIMARIOS */
+    --color-primary: #3B82F6;
+    --color-primary-light: #60A5FA;
+    --color-primary-dark: #2563EB;
+    
+    /* COLORES SECUNDARIOS */
+    --color-secondary: #06B6D4;
+    --color-secondary-light: #22D3EE;
+    
+    /* COLORES FUNCIONALES */
+    --color-accent: #8B5CF6;
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-danger: #EF4444;
+    
+    /* TEXTOS */
+    --color-text: #F1F5F9;
+    --color-text-light: #94A3B8;
+    --color-text-lighter: #64748B;
+    
+    /* BORDES */
+    --color-border: #334155;
+    --color-border-light: #475569;
+    
+    /* SOMBRAS */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    
+    /* TIPOGRAFÍAS */
+    --font-display: 'Inter', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: var(--color-bg);
+}
+
+/* ESTILOS BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HEADINGS */
+h1, h2, h3, .logo {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-text);
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    text-wrap: balance;
+}
+
+.home-page{
+    height: 100dvh;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 12dvh;
+}
+
+.logo {
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.nav-links{
+    display: flex;
+    gap: 12px;
+}
+
+/* BOTONES Y SUS ESTADOS - NAVBAR */
+.btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 3vw, 1.5rem);
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: translateY .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+    font-size: clamp(0.8rem, 2.5vw, 1rem);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.btn-outline:hover {
+    box-shadow: 0 0 30px rgba(72, 134, 234, 0.3);
+}
+
+
+.btn-primary {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-light);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* HERO SECTION  */
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 80dvh;
+    padding: 0 50px;
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.15) 0%, 
+        rgba(139, 92, 246, 0.15) 100%),
+        var(--color-bg);
+    color: var(--color-text);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(100, 140, 246, 0.2) 0%,
+        transparent 50%
+    );
+    animation: pulse 15s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+
+.hero h1 {
+    color: var(--color-text);
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+    text-wrap: balance;
+}
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    margin-bottom: 1.8rem;
+    /* max-width: 700px; */
+    color: var(--color-text-light);
+    position: relative;
+    z-index: 1;
+    text-wrap: pretty;
+}
+
+.btn-large {
+    padding: clamp(0.875rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    position: relative;
+    z-index: inherit;
+}
+
+/* FOOTER */
+.footer {
+    background: var(--color-surface);
+    color: var(--color-text-light);
+    text-align: center;
+    border-top: 1px solid var(--color-border);
+    height: 8dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border-light);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}

@@ -1,0 +1,103 @@
+.privacy-page {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.privacy-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    height: 80dvh;
+    background: var(--color-bg);
+}
+
+.privacy-content {
+    background: var(--color-surface);
+    padding: 3rem;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border);
+    width: min(100%, 800px);
+    box-shadow: var(--shadow-lg);
+    overflow-y: auto;
+}
+
+.privacy-content h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-text);
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.last-updated {
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: 2.5rem;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    font-style: italic;
+}
+
+.privacy-section {
+    margin-bottom: 2rem;
+}
+
+.privacy-section h2 {
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.privacy-section p {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    text-align: justify;
+}
+
+.privacy-section strong {
+    color: var(--color-text);
+}
+
+.privacy-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+/* Scrollbar para el contenido de términos */
+.privacy-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.privacy-content::-webkit-scrollbar-track {
+    background: var(--color-surface-light);
+    border-radius: 4px;
+}
+
+.privacy-content::-webkit-scrollbar-thumb {
+    background: var(--color-border-light);
+    border-radius: 4px;
+}
+
+.privacy-content::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .privacy-content {
+        padding: 2rem;
+    }
+    
+    .privacy-actions {
+        flex-direction: column;
+    }
+    
+    .privacy-actions button {
+        width: 100%;
+    }
+}
