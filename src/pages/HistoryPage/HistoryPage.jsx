@@ -173,7 +173,7 @@ function HistoryPage() {
                             {userData?.tipo === 'colaborador' && (
                             <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                 <Users size={16} />
-                                <span>Cambiar a Colaborador</span>
+                                <span>Modo Colaborador</span>
                             </button>
                             )}
                             
@@ -181,11 +181,11 @@ function HistoryPage() {
                                 <>
                                     <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                         <Users size={16} />
-                                        <span>Cambiar a Colaborador</span>
+                                        <span>Modo Colaborador</span>
                                     </button>
                                     <button className="menu-item" onClick={handleSwitchToAdmin}>
                                         <Shield size={16} />
-                                        <span>Cambiar a Admin</span>
+                                        <span>Modo Admin</span>
                                     </button>
                                 </>
                             )}
