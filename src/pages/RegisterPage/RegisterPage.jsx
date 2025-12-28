@@ -11,6 +11,7 @@ function RegisterPage() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
         fullName: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -32,6 +33,17 @@ function RegisterPage() {
             newErrors.fullName = 'El nombre completo es obligatorio.';
         } else if (!/^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/.test(formData.fullName)) {
             newErrors.fullName = 'El nombre solo puede contener letras y espacios.';
+        }
+
+        // Validación de Nombre de Usuario
+        if (!formData.username.trim()) {
+            newErrors.username = 'El nombre de usuario es obligatorio.';
+        } else if (formData.username.length < 3) {
+            newErrors.username = 'El nombre de usuario debe tener al menos 3 caracteres.';
+        } else if (formData.username.length > 20) {
+            newErrors.username = 'El nombre de usuario no puede tener más de 20 caracteres.';
+        } else if (!/^[a-zA-Z0-9_]+$/.test(formData.username)) {
+            newErrors.username = 'Solo se permiten letras, números y guión bajo (_).';
         }
 
         // Validación de Email
@@ -232,6 +244,7 @@ function RegisterPage() {
                         id: authData.user.id, // Mismo ID que auth.users
                         email: formData.email,
                         nombre_completo: formData.fullName,
+                        nombre_usuario: formData.username,
                         fecha_nacimiento: formData.birthDate,
                         tipo: 'usuario', // Valor por defecto
                     },
@@ -308,6 +321,34 @@ function RegisterPage() {
                                 title='Solo se permiten letras y espacios'
                             />
                             {errors.fullName && <span className="error-message">{errors.fullName}</span>}
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="username">Nombre de Usuario</label>
+                            <input
+                                type="text"
+                                id="username"
+                                placeholder="juanperez123"
+                                value={formData.username}
+                                onChange={(e) => {
+                                    // Solo permitir letras, números y guión bajo
+                                    const value = e.target.value.replace(/[^a-zA-Z0-9_]/g, '');
+                                    setFormData({
+                                        ...formData,
+                                        username: value
+                                    });
+                                    if (errors.username) {
+                                        setErrors({
+                                            ...errors,
+                                            username: ''
+                                        });
+                                    }
+                                }}
+                                className={errors.username ? 'input-error' : ''}
+                                maxLength="20"
+                                title='Solo letras, números y guión bajo (_)'
+                            />
+                            {errors.username && <span className="error-message">{errors.username}</span>}
                         </div>
                         
                         <div className="form-group">
