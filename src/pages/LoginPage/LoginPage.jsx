@@ -133,7 +133,7 @@ function LoginPage() {
                     YAhora?
                 </div>
                 <button 
-                    className="btn btn-outline"
+                    className="btn btn-outline-home btn-register-login"
                     onClick={() => navigate('/register')}
                 >
                     Registrarse
@@ -209,7 +209,7 @@ function LoginPage() {
                         </p>
                         
                         <button 
-                            className="btn btn-outline btn-home"
+                            className="btn btn-outline-home btn-home"
                             onClick={() => navigate('/home')}
                         >
                             <ArrowLeft size={16} /> Volver al inicio
