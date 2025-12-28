@@ -79,6 +79,40 @@ function CollaboratorPage() {
     }
   }, [filtroZona, filtroCategoria, activeTab]);
 
+  // Agregar este useEffect después de los otros useEffect
+  useEffect(() => {
+    // Función para prevenir problemas con el teclado
+    const preventKeyboardIssues = () => {
+      // Prevenir scroll cuando el teclado se abre
+      document.addEventListener('focusin', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+          }, 100);
+        }
+      });
+
+      // Prevenir comportamiento extraño en móviles
+      document.addEventListener('touchstart', (e) => {
+        if (e.target.type === 'text' || e.target.type === 'textarea' || e.target.type === 'search') {
+          // Forzar un pequeño delay para estabilizar
+          setTimeout(() => {
+            e.target.focus();
+          }, 50);
+        }
+      }, { passive: true });
+    };
+
+    preventKeyboardIssues();
+
+    return () => {
+      // Limpieza si es necesaria
+      document.removeEventListener('focusin', () => {});
+      document.removeEventListener('touchstart', () => {});
+    };
+  }, []);
+
   const fetchZonasYCategorias = async () => {
     try {
       // Obtener zonas disponibles
@@ -572,6 +606,31 @@ function CollaboratorPage() {
               placeholder="Escribe tu respuesta aquí..."
               rows={3}
               maxLength={500}
+              onFocus={(e) => {
+                // Forzar redibujado para prevenir bugs
+                e.target.style.transform = 'translateZ(0)';
+                e.target.style.webkitTransform = 'translateZ(0)';
+              }}
+              onTouchStart={(e) => {
+                // Prevenir eventos táctiles que cierran el teclado
+                e.stopPropagation();
+              }}
+              onTouchMove={(e) => {
+                // Permitir scroll dentro del textarea
+                e.stopPropagation();
+              }}
+              // Configurar el teclado correctamente
+              inputMode="text"
+              autoComplete="off"
+              autoCorrect="on"
+              autoCapitalize="sentences"
+              spellCheck="true"
+              // Estilos inline para prevenir bugs
+              style={{
+                WebkitAppearance: 'none',
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation',
+              }}
             />
             <div className="form-actions">
               <button
