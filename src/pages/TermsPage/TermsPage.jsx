@@ -17,7 +17,7 @@ function TermsPage() {
                     YAhora?
                 </div>
                 <button 
-                    className="btn btn-outline"
+                    className="btn btn-outline-home btn-register-login"
                     onClick={() => navigate('/register')}
                 >
                     Registrarse
@@ -96,16 +96,27 @@ function TermsPage() {
                     </div>
 
                     <div className="terms-section">
-                        <h2>8. Colaboradores</h2>
+                        <h2>8. Colaboradores y naturaleza de la relación</h2>
                         <p>
-                            Los colaboradores reciben una compensación por cada respuesta enviada.
-                            YAhora? no se responsabiliza por la exactitud total de las respuestas.
-                            Las respuestas son opiniones o sugerencias, no asesoramiento profesional.
+                            Los colaboradores de YAhora? son usuarios independientes que participan de forma voluntaria en la plataforma respondiendo preguntas de otros usuarios.
+                            La relación entre YAhora? y los colaboradores no constituye una relación laboral, societaria, de dependencia, ni de prestación de servicios profesionales. Los colaboradores no son empleados, representantes ni agentes de YAhora?.
+                            La compensación económica para los colaboradores, cuando exista, se basa exclusivamente en la utilidad percibida por el usuario final, quien podrá indicar si una respuesta le resultó útil o no, conforme a las reglas vigentes de la plataforma al momento de la interacción.
+                            YAhora? no garantiza que todas las respuestas generen compensación económica ni que los colaboradores obtengan ingresos mínimos o constantes. El envío de respuestas no implica automáticamente derecho a pago.
+                            Las respuestas proporcionadas por los colaboradores representan opiniones personales y no constituyen asesoramiento profesional, legal, médico, financiero u otro especializado.
                         </p>
                     </div>
 
                     <div className="terms-section">
-                        <h2>9. Limitación de Responsabilidad</h2>
+                        <h2>9. Sistema de compensación</h2>
+                        <p>
+                            El sistema de compensación de YAhora? puede variar y ajustarse con el tiempo. La plataforma se reserva el derecho de modificar los criterios de pago, montos, condiciones y mecanismos de compensación, previa comunicación a los colaboradores.
+                            La compensación se genera únicamente cuando el sistema así lo determine según las interacciones del usuario, incluyendo pero no limitándose a indicadores de utilidad, valoración o confirmación expresa del usuario.
+                            YAhora? no se responsabiliza por la falta de pagos derivados de la ausencia de valoración por parte del usuario o del uso gratuito del servicio.
+                        </p>
+                    </div>
+
+                    <div className="terms-section">
+                        <h2>10. Limitación de Responsabilidad</h2>
                         <p>
                             YAhora? no se hace responsable por:
                             Decisiones tomadas a partir de las respuestas recibidas.
@@ -115,7 +126,7 @@ function TermsPage() {
                     </div>
 
                     <div className="terms-section">
-                        <h2>10. Modificaciones</h2>
+                        <h2>11. Modificaciones</h2>
                         <p>
                             YAhora? puede modificar estos Términos en cualquier momento.
                             El uso continuado del servicio implica la aceptación de los cambios.
@@ -123,7 +134,7 @@ function TermsPage() {
                     </div>
 
                     <div className="terms-section">
-                        <h2>8. Contacto</h2>
+                        <h2>12. Contacto</h2>
                         <p>
                             Para consultas o reclamos puede escribir a: 
                             <strong> yahora.consultas@gmail.com</strong>
