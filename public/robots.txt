@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /collaborator
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /history
+Disallow: /terms
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://yahora.pages.dev/sitemap.xml
