@@ -395,8 +395,15 @@ function DashboardPage() {
             </header>
 
             <main className="main-content-minimal">       
+                {/* DISCLAIMER HORARIO - AGREGAR ESTO */}
+                <div className="disclaimer-banner">
+                    <div className="disclaimer-text">
+                    <strong>Horario recomendado:</strong> Para mayor probabilidad de respuestas rápidas, 
+                    realiza preguntas entre <strong>7:00 AM y 11:00 PM</strong> (hora Bolivia). 
+                    Fuera de este horario, los colaboradores podrían no estar disponibles.
+                    </div>
+                </div>
                 <h1 className="main-title-minimal">¿En qué podemos ayudarte?</h1>
-                
                 <div className="big-button-container">
                     <button 
                         className="big-question-button"
@@ -404,21 +411,24 @@ function DashboardPage() {
                             if (userData.preguntas_disponibles > 0) {
                                 setShowQuestionModal(true);
                             } else {
-                                showNotification('info', 'No tienes preguntas disponibles. ¡Adquiere más!');
+                                setShowPurchaseModal(true);
+                                showNotification('info', 'No tienes preguntas disponibles. ¡Adquiere más para hacer preguntas!');
                             }
                         }}
-                        disabled={userData.preguntas_disponibles <= 0}
+                        disabled={false}
                     >
                         <div className="plus-icon">
                             <Plus size={48} />
                         </div>
-                        <span className="button-text">Hacer una pregunta</span>
+                        <span className="button-text">
+                            {userData.preguntas_disponibles > 0 ? 'Hacer una pregunta' : 'Adquirir preguntas'}
+                        </span>
                         <span className="questions-counter">
                             {userData.preguntas_disponibles} {userData.preguntas_disponibles === 1 ? 'pregunta disponible' : 'preguntas disponibles'} 
                         </span>
                         {userData.preguntas_disponibles <= 0 && (
                             <span className="no-questions-warning">
-                                No tienes preguntas disponibles
+                                ¡Click aquí para adquirir más preguntas!
                             </span>
                         )}
                     </button>
