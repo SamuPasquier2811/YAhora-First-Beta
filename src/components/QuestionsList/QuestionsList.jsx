@@ -2,8 +2,8 @@ import { MessageSquare, MapPin, Tag, ChevronLeft, ChevronRight, Clock, AlertCirc
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import './QuestionsList.css';
-
-function QuestionsList({ questions, tiempoRespuestaUsuario = 7, userData, onPreguntaCerrada}) {
+// import { useNotification } from '../../hooks/useNotification';
+function QuestionsList({ questions, tiempoRespuestaUsuario = 7, userData, onPreguntaCerrada, showNotification}) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [visibleCards, setVisibleCards] = useState(1);
     const containerRef = useRef(null);
@@ -87,6 +87,7 @@ function QuestionsList({ questions, tiempoRespuestaUsuario = 7, userData, onPreg
                               tiempoRespuestaUsuario={tiempoRespuestaUsuario}
                               userData={userData}
                               onPreguntaCerrada={onPreguntaCerrada}
+                              showNotification={showNotification}
                             />
                         ))}
                     </div>
@@ -103,7 +104,7 @@ function QuestionsList({ questions, tiempoRespuestaUsuario = 7, userData, onPreg
 }
 
 // Componente separado para tarjeta
-function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCerrada }) {
+function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCerrada, showNotification }) {
   // Hacer userData opcional con valor por defecto
   const safeUserData = userData || {
     id: '',
@@ -190,7 +191,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
         .select(`
           *,
           perfiles!inner (
-            nombre_completo,
+            nombre_usuario,
             email,
             colaborador_pro
           )
@@ -212,7 +213,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
       const respuestasProcesadas = respuestasConPerfiles.map(item => ({
         ...item,
         colaborador: item.perfiles ? {
-          nombre_completo: item.perfiles.nombre_completo,
+          nombre_usuario: item.perfiles.nombre_usuario || item.perfiles.email.split('@')[0], 
           email: item.perfiles.email,
           colaborador_pro: item.perfiles.colaborador_pro || false
         } : null
@@ -234,6 +235,71 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
       setLoadingAnswers(false);
     }
   };
+
+  // Función para marcar una respuesta como útil
+  const handleMarcarUtil = async (respuestaId, colaboradorId) => {
+    try {
+        // 1. Verificar que el usuario actual sea el dueño de la pregunta
+        if (!userData?.id || userData.id !== usuarioIdPregunta) {
+            console.error('No tienes permiso para marcar esta respuesta');
+            return;
+        }
+        
+        // 2. Marcar la respuesta como aceptada
+        const { error: respuestaError } = await supabase
+            .from('respuestas')
+            .update({ es_aceptada: true })
+            .eq('id', respuestaId);
+
+        if (respuestaError) throw respuestaError;
+
+        // 3. Obtener información del colaborador para saber si es PRO
+        const { data: colaboradorData, error: colaboradorError } = await supabase
+            .from('perfiles')
+            .select('colaborador_pro, ganancias_colaborador')
+            .eq('id', colaboradorId)
+            .single();
+
+        if (colaboradorError) throw colaboradorError;
+
+        // 4. Calcular monto (30 o 40 centavos)
+        const montoRespuesta = colaboradorData?.colaborador_pro ? 0.40 : 0.30;
+        
+        // 5. Calcular nueva ganancia (manualmente, sin RPC)
+        const gananciaActual = parseFloat(colaboradorData?.ganancias_colaborador) || 0;
+        const nuevaGanancia = gananciaActual + montoRespuesta;
+        
+        // 6. Actualizar ganancias del colaborador
+        const { error: gananciasError } = await supabase
+            .from('perfiles')
+            .update({ 
+                ganancias_colaborador: nuevaGanancia
+            })
+            .eq('id', colaboradorId);
+
+        if (gananciasError) throw gananciasError;
+
+        // 7. Actualizar estado local
+        setAnswers(prev => 
+            prev.map(resp => 
+                resp.id === respuestaId 
+                    ? { ...resp, es_aceptada: true }
+                    : resp
+            )
+        );
+
+        // 8. Mostrar notificación (usando el showNotification pasado como prop)
+        if (showNotification) {
+            showNotification('success', `¡Gracias por marcar la respuesta como útil! El colaborador recibió tu apoyo.`);
+        }
+
+    } catch (error) {
+        console.error('Error marcando respuesta como útil:', error);
+        if (showNotification) {
+            showNotification('error', 'Error al marcar la respuesta');
+        }
+    }
+  }; 
 
   // Suscribirse a cambios en la pregunta
   useEffect(() => {
@@ -431,7 +497,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
               <div key={answer.id} className="answer-item">
                 <div className="answer-header">
                   <span className="answer-author">
-                    {answer.colaborador?.nombre_completo || 
+                    {answer.colaborador?.nombre_usuario || 
                      answer.colaborador?.email?.split('@')[0] || 
                      'Colaborador'}
                   </span>
@@ -440,6 +506,18 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
                           <Shield size={10} />
                           Pro
                       </span>
+                  )}
+                  {/* AGREGAR BOTÓN "ME FUE ÚTIL" */}
+                  {!answer.es_aceptada && userData?.id === usuarioIdPregunta &&  (
+                      <button 
+                          className="btn-util"
+                          onClick={() => handleMarcarUtil(answer.id, answer.colaborador_id)}
+                      >
+                          👍 ¿Me fue útil?
+                      </button>
+                  )}
+                  {answer.es_aceptada && (
+                      <span className="util-marcado">✅ Marcada como útil</span>
                   )}
                 </div>
                 <p className="answer-content">{answer.contenido}</p>
