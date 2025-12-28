@@ -333,3 +333,301 @@
         width: 100%;
     }
 }
+
+/* Agrega estos estilos al final de tu archivo UserProfilePage.css */
+
+/* Agrega estos estilos al final de tu archivo UserProfilePage.css */
+
+/* Estilos para nombre de usuario */
+.username-hint, .username-hint-names {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    margin-top: 0.5rem;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.username-hint-names{
+    font-weight: 600;
+}
+
+.no-username {
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/* Contenedor para editar nombre de usuario */
+.edit-username-container {
+    width: 100%;
+}
+
+.username-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+.username-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Botones de acción responsive */
+.edit-actions-responsive {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+}
+
+.edit-actions-responsive .btn-cancel-responsive,
+.edit-actions-responsive .btn-save-responsive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 140px;
+    flex: 1;
+    min-height: 48px;
+}
+
+.edit-actions-responsive .btn-cancel-responsive {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.edit-actions-responsive .btn-cancel-responsive:hover {
+    background: var(--color-bg);
+}
+
+.edit-actions-responsive .btn-save-responsive {
+    background: var(--color-primary);
+    color: white;
+    border: 1px solid var(--color-primary);
+}
+
+.edit-actions-responsive .btn-save-responsive:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.edit-actions-responsive .btn-save-responsive:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Spinner pequeño para botón de guardar */
+.spinner-small {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Grid responsive */
+.profile-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Asegurar que el botón de editar usuario esté alineado */
+.profile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btn-edit-username {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-edit-username:hover {
+    background: var(--color-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .profile-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+    
+    .profile-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .btn-edit-username {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .edit-actions-responsive {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .edit-actions-responsive .btn-cancel-responsive,
+    .edit-actions-responsive .btn-save-responsive {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    .info-item {
+        padding: 1rem;
+        background: var(--color-surface);
+        border-radius: 0.75rem;
+        border: 1px solid var(--color-border-light);
+    }
+    
+    .info-label {
+        margin-bottom: 0.5rem;
+    }
+    
+    .profile-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .profile-actions .btn-secondary,
+    .profile-actions .btn-primary {
+        width: 100%;
+    }
+}
+
+/* Responsive para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .edit-actions-responsive .btn-cancel-responsive,
+    .edit-actions-responsive .btn-save-responsive {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.95rem;
+        min-height: 44px;
+    }
+    
+    .username-input {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.95rem;
+    }
+    
+    .btn-edit-username {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.95rem;
+    }
+    
+    .profile-title-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .profile-icon {
+        margin: 0 auto;
+    }
+}
+
+/* Asegurar que los botones tengan buen padding y estén bien centrados */
+.edit-actions-responsive .btn-cancel-responsive span,
+.edit-actions-responsive .btn-save-responsive span {
+    padding: 0 4px;
+}
+
+/* Mejorar la apariencia del grid en pantallas grandes */
+@media (min-width: 1200px) {
+    .profile-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Asegurar que los botones no se salgan del contenedor */
+.profile-card {
+    overflow: hidden;
+}
+
+/* Mejorar la legibilidad en todos los dispositivos */
+.info-value {
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+.user-type-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.user-type-badge.usuario {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    color: white;
+}
+
+.user-type-badge.colaborador {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+}
+
+.user-type-badge.admin {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    color: white;
+}
+
+.badge.enabled {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+}
+
+.badge.disabled {
+    background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+}
