@@ -54,7 +54,7 @@ body{
 }
 
 /* HEADINGS */
-h1, h2, h3, .logo {
+h1, h2, h3, .logo-home {
     font-family: var(--font-display);
     font-weight: 700;
     line-height: 1.1;
@@ -97,7 +97,7 @@ h3 {
     height: 12dvh;
 }
 
-.logo {
+.logo-home {
     font-size: clamp(1.3rem, 4vw, 2rem);
     color: var(--color-primary);
     text-decoration: none;
@@ -111,7 +111,7 @@ h3 {
 }
 
 /* BOTONES Y SUS ESTADOS - NAVBAR */
-.btn {
+.btn-home {
     font-family: var(--font-body);
     font-weight: 600;
     padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(0.75rem, 2.3vw, 1.3rem);
@@ -122,28 +122,28 @@ h3 {
     font-size: clamp(0.8rem, 2.3vw, 1rem);
 }
 
-.btn:hover {
+.btn-home:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
-.btn-outline {
+.btn-outline-home {
     background: transparent;
     border: 2px solid var(--color-primary);
     color: var(--color-primary);
 }
 
-.btn-outline:hover {
+.btn-outline-home:hover {
     box-shadow: 0 0 30px rgba(72, 134, 234, 0.3);
 }
 
 
-.btn-primary {
+.btn-primary-home {
     background: var(--color-primary);
     color: white;
 }
 
-.btn-primary:hover {
+.btn-primary-home:hover {
     background: var(--color-primary-light);
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
@@ -205,7 +205,7 @@ h3 {
 }
 
 .btn-large {
-    padding: clamp(0.875rem, 3vw, 1rem) clamp(1.5rem, 5vw, 2rem);
+    padding: clamp(0.875rem, 4vw, 1.2rem) clamp(1.5rem, 5vw, 2rem);
     font-size: clamp(1rem, 3.5vw, 1.2rem);
     position: relative;
     z-index: inherit;
@@ -243,10 +243,106 @@ h3 {
 }
 
 @media (max-width: 480px){
-    .navbar{
-        padding: 0 20px;
+    .navbar {
+        padding: 15px 20px; /* Mantener padding consistente */
+        justify-content: space-between;
+        gap: 10px; /* Espacio entre elementos */
     }
-    .btn-primary{
-        width: min-content;
+    
+    .logo-home {
+        font-size: 1.4rem; /* Tamaño fijo para móviles */
+        flex-shrink: 0; /* Evitar que se reduzca demasiado */
+        min-width: 110px; /* Ancho mínimo*/ 
+    }
+    
+    .nav-links {
+        gap: 8px; /* Reducir espacio entre botones */
+        flex-shrink: 1; /* Permitir que se ajusten */
+    }
+    
+    .btn-primary-home, .btn-outline-home {
+        /* padding: 8px 12px; Padding fijo para móviles */
+        font-size: 0.85rem; /* Tamaño de fuente fijo */
+        min-width: 85px; /* Ancho mínimo para botones */
+        white-space: nowrap; /* Evitar que el texto se parta */
+        width: auto; /* Ancho automático según contenido */
+    }
+}
+
+/* Para pantallas MUY pequeñas (menos de 360px) */
+@media (max-width: 360px) {
+    .navbar {
+        padding: 12px 10px;
+    }
+    
+    .logo-home {
+        font-size: 1.2rem;
+    }
+    
+    .btn-primary-home, .btn-outline-home {
+        padding: 7px 10px;
+        font-size: 0.8rem;
+        min-width: 80px;
+    }
+}
+/* BOTÓN COMENZAR GRATIS - AJUSTADO */
+.btn-large {
+    padding: 16px 40px;
+    font-size: 1.9rem;
+    position: relative;
+    z-index: inherit;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: 200px;
+    max-width: 300px;
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-large:hover {
+    background: var(--color-primary-light);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn-large:active {
+    transform: translateY(-1px);
+}
+
+/* AJUSTES RESPONSIVE PARA EL BOTÓN */
+@media (max-width: 768px) {
+    .btn-large {
+        padding: 14px 32px;
+        font-size: 1.7rem;
+        min-width: 180px;
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-large {
+        padding: 12px 28px;
+        font-size: 1.5rem;
+        min-width: 160px;
+        max-width: 250px;
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .btn-large {
+        padding: 10px 24px;
+        font-size: 1.3rem;
+        min-width: 140px;
+        max-width: 220px;
     }
 }
