@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '../../lib/supabaseClient';
-import { LogOut, User, Users, Shield, History, ChevronDown, MessageSquare, Clock, Loader2, MapPin } from 'lucide-react';
+import { LogOut, User, Users, Shield, History, ChevronDown, MessageSquare, Clock, Loader2, MapPin, UserCog } from 'lucide-react';
 import { useNotification } from '../../hooks/useNotification';
 import NotificationComponent from '../../components/common/Notification/NotificationComponent';
 import './CollaboratorPage.css';
@@ -79,38 +79,23 @@ function CollaboratorPage() {
     }
   }, [filtroZona, filtroCategoria, activeTab]);
 
-  // Agregar este useEffect después de los otros useEffect
+  // Función mejorada para problemas de teclado (sin scroll automático)
   useEffect(() => {
-    // Función para prevenir problemas con el teclado
-    const preventKeyboardIssues = () => {
-      // Prevenir scroll cuando el teclado se abre
-      document.addEventListener('focusin', (e) => {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-            document.body.scrollTop = 0;
-          }, 100);
-        }
-      });
+      const handleFocus = (e) => {
+          // Solo prevenir comportamiento no deseado, sin scroll
+          if (e.target.tagName === 'TEXTAREA') {
+              // Pequeño delay para estabilizar
+              setTimeout(() => {
+                  e.target.focus();
+              }, 10);
+          }
+      };
 
-      // Prevenir comportamiento extraño en móviles
-      document.addEventListener('touchstart', (e) => {
-        if (e.target.type === 'text' || e.target.type === 'textarea' || e.target.type === 'search') {
-          // Forzar un pequeño delay para estabilizar
-          setTimeout(() => {
-            e.target.focus();
-          }, 50);
-        }
-      }, { passive: true });
-    };
+      document.addEventListener('focusin', handleFocus);
 
-    preventKeyboardIssues();
-
-    return () => {
-      // Limpieza si es necesaria
-      document.removeEventListener('focusin', () => {});
-      document.removeEventListener('touchstart', () => {});
-    };
+      return () => {
+          document.removeEventListener('focusin', handleFocus);
+      };
   }, []);
 
   const fetchZonasYCategorias = async () => {
@@ -231,7 +216,7 @@ function CollaboratorPage() {
         .select(`
           *,
           perfiles!inner (
-            nombre_completo,
+            nombre_usuario,
             email,
             colaborador_pro
           )
@@ -245,7 +230,7 @@ function CollaboratorPage() {
       const respuestasProcesadas = (data || []).map(item => ({
         ...item,
         colaborador: item.perfiles ? {
-          nombre_completo: item.perfiles.nombre_completo,
+          nombre_usuario: item.perfiles.nombre_usuario,
           email: item.perfiles.email,
           colaborador_pro: item.perfiles.colaborador_pro || false
         } : null
@@ -366,22 +351,6 @@ function CollaboratorPage() {
         if (preguntaError) console.error('Error actualizando contador:', preguntaError);
       }
 
-      // 3. ACTUALIZAR GANANCIAS DEL COLABORADOR
-      const { error: gananciasError } = await supabase
-          .from('perfiles')
-          .update({ 
-              ganancias_colaborador: (userData?.ganancias_colaborador || 0) + montoRespuesta
-          })
-          .eq('id', user.id);
-      
-      if (gananciasError) throw gananciasError;
-
-      // 4. Actualizar estado local del usuario
-      setUserData(prev => ({
-          ...prev,
-          ganancias_colaborador: (prev.ganancias_colaborador || 0) + montoRespuesta
-      }));
-
       // 5. Actualizar estadísticas
       await fetchMisRespuestas();
       await fetchRespuestasPregunta(preguntaId);
@@ -395,9 +364,9 @@ function CollaboratorPage() {
       
       // 7. Mostrar notificación según si alcanzó el límite
       if (nuevoNumRespuestas >= 5) {
-        showNotification('success', `¡Respuesta enviada exitosamente! Esta pregunta ya alcanzó el máximo de 5 respuestas. Ganaste ${montoRespuesta.toFixed(2)} Bs`);
+        showNotification('success', `¡Respuesta enviada exitosamente! Esta pregunta ya alcanzó el máximo de 5 respuestas.`);
       } else {
-        showNotification('success', `¡Respuesta enviada exitosamente! Ganaste ${montoRespuesta.toFixed(2)} Bs`);
+        showNotification('success', `¡Respuesta enviada exitosamente!`);
       }
       
     } catch (error) {
@@ -554,7 +523,7 @@ function CollaboratorPage() {
                   <div key={respuesta.id || index} className="collab-answer-item">
                     <div className="collab-answer-header">
                       <span className="collab-answer-author">
-                        {respuesta.colaborador?.nombre_completo || 
+                        {respuesta.colaborador?.nombre_usuario || 
                         respuesta.colaborador?.email?.split('@')[0] || 
                         'Colaborador'}
                         {respuesta.colaborador_id === userData?.id && ' (Tú)'}
@@ -629,7 +598,6 @@ function CollaboratorPage() {
               style={{
                 WebkitAppearance: 'none',
                 WebkitTapHighlightColor: 'transparent',
-                touchAction: 'manipulation',
               }}
             />
             <div className="form-actions">
@@ -651,9 +619,9 @@ function CollaboratorPage() {
                     <span>Enviando...</span>
                   </>
                 ) : respuestasPregunta.length >= 4 ? (
-                  `Enviar (Última oportunidad) (${userData?.colaborador_pro ? '0.40' : '0.30'} Bs)`
+                  `Enviar (Última oportunidad)`
                 ) : (
-                  `Enviar Respuesta (${userData?.colaborador_pro ? '0.40' : '0.30'} Bs)`
+                  `Enviar Respuesta`
                 )}
               </button>
             </div>
@@ -668,9 +636,9 @@ function CollaboratorPage() {
             {respuestasPregunta.length >= 5 ? (
               "❌ Máximo de respuestas alcanzado"
             ) : respuestasPregunta.length >= 4 ? (
-              `Responder (Última oportunidad) (${userData?.colaborador_pro ? '0.40' : '0.30'} Bs)`
+              `Responder (Última oportunidad)`
             ) : (
-              `Responder (${userData?.colaborador_pro ? '0.40' : '0.30'} Bs)`
+              `Responder`
             )}
           </button>
         )}
@@ -749,19 +717,19 @@ function CollaboratorPage() {
               </button>
               
               <button className="menu-item" onClick={() => navigate('/profile')}>
-                  <User size={16} />
+                  <UserCog size={16} />
                   <span>Mis Datos</span>
               </button>
               
               <button className="menu-item" onClick={handleSwitchToUser}>
                 <User size={16} />
-                <span>Cambiar a Usuario</span>
+                <span>Modo Usuario</span>
               </button>
               
               {userData?.tipo === 'admin' && (
                 <button className="menu-item" onClick={handleSwitchToAdmin}>
                   <Shield size={16} />
-                  <span>Cambiar a Admin</span>
+                  <span>Modo Admin</span>
                 </button>
               )}
               
@@ -782,7 +750,7 @@ function CollaboratorPage() {
             <Users size={48} />
           </div>
           <h1>Panel de Colaborador</h1>
-          <p>Responde preguntas de usuarios y gana {userData?.colaborador_pro ? '0.40' : '0.30'} Bs por cada respuesta</p>
+          <p>Responde preguntas de usuarios y gana cuando los usuarios marquen tus respuestas como útiles</p>
           {userData?.colaborador_pro && (
               <div className="pro-badge-header">
                   <Shield size={20} className="pro-icon" />
@@ -916,7 +884,7 @@ function CollaboratorPage() {
                     ) : (
                       <>
                         <p>Cuando los usuarios hagan preguntas, aparecerán aquí para que puedas responderlas.</p>
-                        <p className="empty-note">Recuerda: Por cada respuesta ganas {userData?.colaborador_pro ? '0.40' : '0.30'} Bs</p>
+                        <p className="empty-note">Recuerda: Por cada respuesta marcada como útil ganas {userData?.colaborador_pro ? '0.40' : '0.30'} Bs</p>
                       </>
                     )}
                   </div>
