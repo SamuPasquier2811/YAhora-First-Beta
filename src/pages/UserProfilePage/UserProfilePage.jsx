@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabaseClient';
-import { LogOut, User, History, Users, Shield, ChevronDown, Save, Edit, X, Mail, Package, Clock, Image, Shield as ShieldIcon } from 'lucide-react';
+import { LogOut, User, History, Users, Shield, ChevronDown, Save, Edit, X, Mail, Package, Clock, Image, Shield as ShieldIcon, PanelTop } from 'lucide-react';
 import './UserProfilePage.css';
 
 function UserProfilePage() {
@@ -63,8 +63,7 @@ function UserProfilePage() {
             const { error } = await supabase
                 .from('perfiles')
                 .update({ 
-                    nombre_completo: nombreCompleto.trim(),
-                    actualizado_en: new Date().toISOString()
+                    nombre_completo: nombreCompleto.trim()
                 })
                 .eq('id', userData.id);
 
@@ -148,7 +147,7 @@ function UserProfilePage() {
                             <div className="menu-divider"></div>
                             
                             <button className="menu-item" onClick={handleSwitchToDashboard}>
-                                <History size={16} />
+                                <PanelTop size={16} />
                                 <span>Panel Principal</span>
                             </button>
                             
@@ -160,7 +159,7 @@ function UserProfilePage() {
                             {userData?.tipo === 'colaborador' && (
                             <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                 <Users size={16} />
-                                <span>Cambiar a Colaborador</span>
+                                <span>Modo Colaborador</span>
                             </button>
                             )}
                             
@@ -168,11 +167,11 @@ function UserProfilePage() {
                                 <>
                                     <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                         <Users size={16} />
-                                        <span>Cambiar a Colaborador</span>
+                                        <span>Modo Colaborador</span>
                                     </button>
                                     <button className="menu-item" onClick={handleSwitchToAdmin}>
                                         <Shield size={16} />
-                                        <span>Cambiar a Admin</span>
+                                        <span>Modo Admin</span>
                                     </button>
                                 </>
                             )}
