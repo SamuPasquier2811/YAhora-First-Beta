@@ -469,8 +469,10 @@ function AdminPage() {
 
   const handleSaveEdit = async (table, id) => {
     try {
+      const tableName = 'perfiles';
+      
       const { error } = await supabaseAdmin
-        .from(table === 'usuarios' ? 'perfiles' : table)
+        .from(tableName)
         .update(editingData)
         .eq('id', id);
 
@@ -615,12 +617,12 @@ function AdminPage() {
               
               <button className="menu-item" onClick={handleSwitchToUser}>
                 <User size={16} />
-                <span>Cambiar a Usuario</span>
+                <span>Modo Usuario</span>
               </button>
               
               <button className="menu-item" onClick={handleSwitchToCollaborator}>
                 <Users size={16} />
-                <span>Cambiar a Colaborador</span>
+                <span>Modo Colaborador</span>
               </button>
               
               <div className="menu-divider"></div>
@@ -725,6 +727,7 @@ function AdminPage() {
                         <tr>
                           <th>Email</th>
                           <th>Nombre Completo</th>
+                          <th>Nombre de Usuario</th>
                           <th>Fecha Nacimiento</th>
                           <th>Tipo</th>
                           <th>Preguntas Disponibles</th>
@@ -754,6 +757,15 @@ function AdminPage() {
                                     value={editingData.nombre_completo || ''}
                                     onChange={(e) => setEditingData({...editingData, nombre_completo: e.target.value})}
                                     className="edit-input"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={editingData.nombre_usuario || ''}
+                                    onChange={(e) => setEditingData({...editingData, nombre_usuario: e.target.value})}
+                                    className="edit-input"
+                                    placeholder="Nombre de usuario"
                                   />
                                 </td>
                                 <td>
@@ -835,6 +847,7 @@ function AdminPage() {
                               <>
                                 <td>{usuario.email}</td>
                                 <td>{usuario.nombre_completo || '-'}</td>
+                                <td>{usuario.nombre_usuario || '-'}</td>
                                 <td>{usuario.fecha_nacimiento || '-'}</td>
                                 <td>
                                   <span className={`badge tipo-${usuario.tipo}`}>
@@ -915,7 +928,8 @@ function AdminPage() {
                       <thead>
                         <tr>
                           <th>Email</th>
-                          <th>Nombre</th>
+                          <th>Nombre Completo</th>
+                          <th>Nombre de Usuario</th>
                           <th>Tipo</th>
                           <th>Colaborador Pro</th>
                           <th>Preguntas Disponibles</th>
@@ -936,6 +950,15 @@ function AdminPage() {
                                     value={editingData.nombre_completo || ''}
                                     onChange={(e) => setEditingData({...editingData, nombre_completo: e.target.value})}
                                     className="edit-input"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    value={editingData.nombre_usuario || ''}
+                                    onChange={(e) => setEditingData({...editingData, nombre_usuario: e.target.value})}
+                                    className="edit-input"
+                                    placeholder="Nombre de usuario"
                                   />
                                 </td>
                                 <td>
@@ -998,6 +1021,7 @@ function AdminPage() {
                               <>
                                 <td>{colaborador.email}</td>
                                 <td>{colaborador.nombre_completo || '-'}</td>
+                                <td>{colaborador.nombre_usuario || '-'}</td>
                                 <td>
                                   <span className={`badge tipo-${colaborador.tipo}`}>
                                     {colaborador.tipo}
