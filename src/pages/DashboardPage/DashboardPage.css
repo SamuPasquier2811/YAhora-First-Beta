@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 /* Menú desplegable */
@@ -353,4 +353,97 @@
   .profile-dropdown-menu {
     width: 220px;
   }
+}
+
+/* DISCLAIMER BANNER */
+.disclaimer-banner {
+  /* background: linear-gradient(135deg, #6b7ed3 0%, #4b4ca2 100%); */
+  background-color: var(--color-primary-dark);
+  color: var(--color-text);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 auto 24px auto;
+  max-width: 800px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  box-shadow: 0 4px 15px var(--shadow-lg);
+  border-left: 5px solid var(--color-border);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.disclaimer-text {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.disclaimer-text strong {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .disclaimer-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 15px;
+    margin: 0 16px 20px 16px;
+  }
+  
+  .disclaimer-icon {
+    margin: 0 auto;
+  }
+  
+  .disclaimer-text {
+    font-size: 14px;
+  }
+}
+
+/* Cuando no hay preguntas, cambiar estilo del botón */
+.big-question-button:has(.no-questions-warning) {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  border-color: #ff4757;
+  animation: pulse-glow 2s infinite;
+}
+
+.big-question-button:has(.no-questions-warning):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+}
+
+.no-questions-warning {
+  display: block;
+  font-size: 15px;
+  color: white;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px 15px;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-weight: 600;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
 }
