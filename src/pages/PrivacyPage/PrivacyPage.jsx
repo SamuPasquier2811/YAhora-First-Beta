@@ -18,7 +18,7 @@ function PrivacyPage() {
                     YAhora?
                 </div>
                 <button 
-                    className="btn btn-outline"
+                    className="btn btn-outline-home btn-register-login"
                     onClick={() => navigate('/register')}
                 >
                     Registrarse
@@ -36,7 +36,7 @@ function PrivacyPage() {
                         <p>
                             Recopilamos información que nos proporcionas al registrarte, como nombre, 
                             correo electrónico y fecha de nacimiento. También recopilamos datos de uso 
-                            de la plataforma.
+                            de la plataforma. Asimismo, YAhora? puede recopilar y procesar información básica de colaboradores con fines de gestión interna, funcionamiento del sistema y, cuando corresponda, procesamiento de compensaciones.
                         </p>
                     </div>
 
