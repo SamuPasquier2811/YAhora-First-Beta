@@ -188,7 +188,10 @@ function PurchaseModal({ isOpen, onClose, userData, showNotification }) {
                         
                         {/* Título Beneficios */}
                         <h3 className="benefits-title">Beneficios Extras</h3>
-                        
+                        <p className="simple-benefit-note">
+                            ⓘ Estos beneficios se mantienen activos mientras tengas preguntas disponibles.
+                            Se reinician solo cuando tus preguntas llegan a cero.
+                        </p>
                         {/* Sección 2: Tiempo de respuesta */}
                         <div className="purchase-section">
                             <h3 className="section-title">
@@ -243,7 +246,7 @@ function PurchaseModal({ isOpen, onClose, userData, showNotification }) {
                                         onChange={() => setIncluyeImagenes(true)}
                                     />
                                     <span className="radio-custom"></span>
-                                    <span className="radio-label">Sí (+4Bs)</span>
+                                    <span className="radio-label">Sí</span>
                                 </label>
                             </div>
                         </div>
