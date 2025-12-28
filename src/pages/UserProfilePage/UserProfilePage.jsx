@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabaseClient';
-import { LogOut, User, History, Users, Shield, ChevronDown, Save, Edit, X, Mail, Package, Clock, Image, Shield as ShieldIcon, PanelTop } from 'lucide-react';
+import { LogOut, User, History, Users, Shield, ChevronDown, Save, Edit, X, Mail, Package, Clock, Image, Shield as ShieldIcon, PanelTop, User as UserIcon } from 'lucide-react';
 import './UserProfilePage.css';
 
 function UserProfilePage() {
@@ -10,7 +10,7 @@ function UserProfilePage() {
     const [loading, setLoading] = useState(true);
     const [showMenu, setShowMenu] = useState(false);
     const [editMode, setEditMode] = useState(false);
-    const [nombreCompleto, setNombreCompleto] = useState('');
+    const [nombreUsuario, setNombreUsuario] = useState('');
     const [saving, setSaving] = useState(false);
 
     useEffect(() => {
@@ -36,6 +36,7 @@ function UserProfilePage() {
                 id: user.id,
                 email: user.email,
                 nombre_completo: perfil?.nombre_completo || user.email.split('@')[0],
+                nombre_usuario: perfil?.nombre_usuario || '',
                 tipo: perfil?.tipo || 'usuario',
                 preguntas_disponibles: perfil?.preguntas_disponibles || 0,
                 plan_actual: perfil?.plan_actual || 'gratis',
@@ -46,7 +47,7 @@ function UserProfilePage() {
             };
 
             setUserData(userDataObj);
-            setNombreCompleto(userDataObj.nombre_completo);
+            setNombreUsuario(userDataObj.nombre_usuario);
         } catch (error) {
             console.error('Error cargando datos:', error);
         } finally {
@@ -54,8 +55,8 @@ function UserProfilePage() {
         }
     };
 
-    const handleSaveName = async () => {
-        if (!userData || !nombreCompleto.trim()) return;
+    const handleSaveUsername = async () => {
+        if (!userData) return;
         
         try {
             setSaving(true);
@@ -63,7 +64,7 @@ function UserProfilePage() {
             const { error } = await supabase
                 .from('perfiles')
                 .update({ 
-                    nombre_completo: nombreCompleto.trim()
+                    nombre_usuario: nombreUsuario.trim() || null
                 })
                 .eq('id', userData.id);
 
@@ -72,13 +73,13 @@ function UserProfilePage() {
             // Actualizar estado local
             setUserData(prev => ({
                 ...prev,
-                nombre_completo: nombreCompleto.trim()
+                nombre_usuario: nombreUsuario.trim() || ''
             }));
             
             setEditMode(false);
         } catch (error) {
-            console.error('Error actualizando nombre:', error);
-            alert('Error al actualizar el nombre');
+            console.error('Error actualizando nombre de usuario:', error);
+            alert('Error al actualizar el nombre de usuario');
         } finally {
             setSaving(false);
         }
@@ -103,8 +104,6 @@ function UserProfilePage() {
     const handleSwitchToDashboard = () => navigate('/dashboard');
     const handleSwitchToCollaborator = () => navigate('/collaborator');
     const handleSwitchToAdmin = () => navigate('/admin');
-
-    const canEditName = userData?.tipo === 'colaborador' || userData?.tipo === 'admin';
 
     if (loading) {
         return (
@@ -204,68 +203,91 @@ function UserProfilePage() {
                     <div className="profile-card">
                         <div className="profile-card-header">
                             <h2>Información Personal</h2>
-                            {canEditName && !editMode && (
+                            {!editMode && (
                                 <button 
-                                    className="btn-edit-nombre"
+                                    className="btn-edit-username"
                                     onClick={() => setEditMode(true)}
                                 >
                                     <Edit size={16} />
-                                    Editar Nombre
+                                    Editar Usuario
                                 </button>
                             )}
                         </div>
 
                         <div className="profile-info-grid">
-                            {/* Nombre Completo */}
+                            {/* Nombre Completo (solo lectura) */}
                             <div className="info-item">
                                 <div className="info-label">
                                     <User size={16} />
                                     <span>Nombre Completo</span>
                                 </div>
+                                <div className="info-value">{userData?.nombre_completo}</div>
+                            </div>
+
+                            {/* Nombre de Usuario (editable) */}
+                            <div className="info-item">
+                                <div className="info-label">
+                                    <UserIcon size={16} />
+                                    <span>Nombre de Usuario</span>
+                                </div>
                                 {editMode ? (
-                                    <div className="edit-name-container">
+                                    <div className="edit-username-container">
                                         <input
                                             type="text"
-                                            value={nombreCompleto}
-                                            onChange={(e) => setNombreCompleto(e.target.value)}
-                                            className="name-input"
-                                            placeholder="Ingresa tu nombre completo"
+                                            value={nombreUsuario}
+                                            onChange={(e) => setNombreUsuario(e.target.value)}
+                                            className="username-input"
+                                            placeholder="Ingresa tu nombre de usuario"
+                                            autoFocus
                                         />
-                                        <div className="edit-actions">
-                                            <button 
-                                                className="btn-cancel"
-                                                onClick={() => {
-                                                    setEditMode(false);
-                                                    setNombreCompleto(userData.nombre_completo);
-                                                }}
-                                                disabled={saving}
-                                            >
-                                                <X size={16} />
-                                                Cancelar
-                                            </button>
-                                            <button 
-                                                className="btn-save"
-                                                onClick={handleSaveName}
-                                                disabled={saving || !nombreCompleto.trim()}
-                                            >
-                                                {saving ? (
-                                                    <>
-                                                        <div className="spinner-small"></div>
-                                                        Guardando...
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <Save size={16} />
-                                                        Guardar
-                                                    </>
-                                                )}
-                                            </button>
+                                        <div className="username-hint">
+                                            Este nombre aparece junto a tus respuestas como colaborador.
+                                        </div>
+                                        <div className="username-hint-names">
+                                            No colocar nombres inventados (Ej: Pepe48_2, Juan2@132)
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="info-value">{userData?.nombre_completo}</div>
+                                    <div className="info-value">
+                                        {userData?.nombre_usuario || 
+                                         <span className="no-username">No configurado</span>}
+                                    </div>
                                 )}
                             </div>
+
+                            {/* Botones de acción solo en modo edición */}
+                            {editMode && (
+                                <div className="edit-actions-responsive">
+                                    <button 
+                                        className="btn-cancel-responsive"
+                                        onClick={() => {
+                                            setEditMode(false);
+                                            setNombreUsuario(userData.nombre_usuario || '');
+                                        }}
+                                        disabled={saving}
+                                    >
+                                        <X size={16} />
+                                        <span>Cancelar</span>
+                                    </button>
+                                    <button 
+                                        className="btn-save-responsive"
+                                        onClick={handleSaveUsername}
+                                        disabled={saving}
+                                    >
+                                        {saving ? (
+                                            <>
+                                                <div className="spinner-small"></div>
+                                                <span>Guardando...</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Save size={16} />
+                                                <span>Guardar Cambios</span>
+                                            </>
+                                        )}
+                                    </button>
+                                </div>
+                            )}
 
                             {/* Email */}
                             <div className="info-item">
