@@ -5,8 +5,8 @@ function HomePage() {
     return (
         <div className="home-page">
             {/* Navbar */}
-            <nav className="navbar">
-                <div className="logo">YAhora?</div>
+            <nav className="navbar" aria-label='Navegación principal'>
+                <div className="logo" role='heading' aria-level="1">YAhora?</div>
                 <div className="nav-links">
                     <button onClick={() => navigate('/login')} className="btn btn-outline">Ingresar</button>
                     <button onClick={() => navigate('/register')} className="btn btn-primary">Comenzar</button>
@@ -14,9 +14,9 @@ function HomePage() {
             </nav>
 
             {/* Hero */}
-            <section className="hero">
+            <section className="hero" aria-labelledby='main-heading'>
                 <h3>Si algo no sale como esperabas, seguramente te has preguntado:</h3>
-                <h1>¿Y ahora?</h1>
+                <h1 id='main-heading'>¿Y ahora?</h1>
                 <p>
                     Estamos aquí para ayudarte, resolviendo tus dudas en tiempo récord.
                 </p>
