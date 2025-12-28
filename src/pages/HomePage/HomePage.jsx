@@ -6,10 +6,10 @@ function HomePage() {
         <div className="home-page">
             {/* Navbar */}
             <nav className="navbar" aria-label='Navegación principal'>
-                <div className="logo" role='heading' aria-level="1">YAhora?</div>
+                <div className="logo-home" role='heading' aria-level="1">YAhora?</div>
                 <div className="nav-links">
-                    <button onClick={() => navigate('/login')} className="btn btn-outline">Ingresar</button>
-                    <button onClick={() => navigate('/register')} className="btn btn-primary">Comenzar</button>
+                    <button onClick={() => navigate('/login')} className="btn-home btn-outline-home">Ingresar</button>
+                    <button onClick={() => navigate('/register')} className="btn-home btn-primary-home">Comenzar</button>
                 </div>
             </nav>
 
@@ -20,7 +20,7 @@ function HomePage() {
                 <p>
                     Estamos aquí para ayudarte, resolviendo tus dudas en tiempo récord.
                 </p>
-                <button onClick={() => navigate('/register')} className="btn btn-primary btn-large">
+                <button onClick={() => navigate('/register')} className="btn btn-large">
                     Comenzar Gratis
                 </button>
             </section>
