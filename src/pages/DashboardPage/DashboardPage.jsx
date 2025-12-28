@@ -37,7 +37,7 @@ function DashboardPage() {
 
             const { data: perfil } = await supabase
                 .from('perfiles')
-                .select('id, nombre_completo, tipo, preguntas_disponibles, email, plan_actual, tiempo_respuesta_minutos, imagenes_permitidas')
+                .select('id, nombre_completo, nombre_usuario, tipo, preguntas_disponibles, email, plan_actual, tiempo_respuesta_minutos, imagenes_permitidas')
                 .eq('id', user.id)
                 .single();
 
@@ -49,6 +49,7 @@ function DashboardPage() {
                         id: user.id,
                         email: user.email,
                         nombre_completo: user.user_metadata?.full_name || user.email.split('@')[0],
+                        nombre_usuario: perfil?.nombre_usuario || '',
                         tipo: 'usuario',
                         preguntas_disponibles: 2,
                         plan_actual: 'gratis',
@@ -62,6 +63,7 @@ function DashboardPage() {
                     id: user.id,
                     email: user.email,
                     nombre_completo: nuevoPerfil?.nombre_completo || user.email.split('@')[0],
+                    nombre_usuario: perfil?.nombre_usuario || '',
                     tipo: nuevoPerfil?.tipo || 'usuario',
                     preguntas_disponibles: nuevoPerfil?.preguntas_disponibles || 2,
                     plan_actual: nuevoPerfil?.plan_actual || 'gratis',
@@ -73,6 +75,7 @@ function DashboardPage() {
                     id: user.id,
                     email: user.email,
                     nombre_completo: perfil.nombre_completo || user.email.split('@')[0],
+                    nombre_usuario: perfil?.nombre_usuario || '',
                     tipo: perfil.tipo || 'usuario',
                     preguntas_disponibles: perfil.preguntas_disponibles,
                     plan_actual: perfil.plan_actual || 'gratis',
@@ -366,7 +369,7 @@ function DashboardPage() {
                             {userData?.tipo === 'colaborador' && (
                             <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                 <Users size={16} />
-                                <span>Cambiar a Colaborador</span>
+                                <span>Modo Colaborador</span>
                             </button>
                             )}
                             
@@ -374,11 +377,11 @@ function DashboardPage() {
                                 <>
                                     <button className="menu-item" onClick={handleSwitchToCollaborator}>
                                         <Users size={16} />
-                                        <span>Cambiar a Colaborador</span>
+                                        <span>Modo Colaborador</span>
                                     </button>
                                     <button className="menu-item" onClick={handleSwitchToAdmin}>
                                         <Shield size={16} />
-                                        <span>Cambiar a Admin</span>
+                                        <span>Modo Admin</span>
                                     </button>
                                 </>
                             )}
@@ -440,11 +443,21 @@ function DashboardPage() {
                         Aquí recibirás las respuestas a todas tus preguntas en tiempo real 
                         por parte de nuestros colaboradores bolivianos
                     </p>
+                    {/* AGREGAR ESTE MENSAJE */}
+                    <div className="util-notice">
+                        <div className="util-notice-icon">💡</div>
+                        <div className="util-notice-content">
+                            <strong>Recuerda:</strong> Presiona el botón <span className="util-highlight">"¿Me fue útil?"</span> 
+                            si alguna respuesta te ayudó. Así apoyas directamente a nuestros colaboradores 
+                            y nos motivas a responder con mayor rapidez y calidad.
+                        </div>
+                    </div>
                     <QuestionsList 
                         questions={userQuestions} 
                         tiempoRespuestaUsuario={userData?.tiempo_respuesta_minutos || 7}
                         userData={userData}
                         onPreguntaCerrada={actualizarEstadoPregunta}
+                        showNotification={showNotification}
                     />
                 </div>
                 <PurchaseButton 
