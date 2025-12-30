@@ -165,7 +165,7 @@ function DashboardPage() {
               });
               
               const result = await response.json();
-              console.log('Notificación enviada:', result);
+              // console.log('Notificación enviada:', result);
             } catch (notifyError) {
               console.warn('Error enviando notificación:', notifyError);
               // NO lanzar error - que la pregunta se cree igual
@@ -504,4 +504,5 @@ function DashboardPage() {
 }
 
 export default DashboardPage;
+
 
