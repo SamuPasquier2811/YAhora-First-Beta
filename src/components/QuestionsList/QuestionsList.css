@@ -301,6 +301,14 @@
   flex: 1;
   line-height: 1.4;
   margin-bottom: 0.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto; /* Divide palabras con guiones cuando es necesario */
+  max-height: 4.2em; /* Aprox 3 líneas (1.4 * 3) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .status-container {
@@ -645,4 +653,18 @@
     gap: 10px;
     flex-wrap: wrap;
     margin-bottom: 8px;
+}
+
+/* Estilo para cuando ya se seleccionó una respuesta útil */
+.util-ya-seleccionada {
+  background: linear-gradient(135deg, #6B7280 0%, #4B5563 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
