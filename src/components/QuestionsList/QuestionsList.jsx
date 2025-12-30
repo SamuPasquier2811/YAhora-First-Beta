@@ -139,6 +139,8 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
   const [answers, setAnswers] = useState([]);
   const [loadingAnswers, setLoadingAnswers] = useState(false);
 
+  const [respuestaUtilMarcada, setRespuestaUtilMarcada] = useState(false);
+
   // Cargar usuario_id de la pregunta y respuestas
   useEffect(() => {
     const fetchQuestionDetails = async () => {
@@ -160,7 +162,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
 
     fetchQuestionDetails();
     fetchAnswers();
-    
+    verificarYaMarcoUtil();
     const channel = supabase
       .channel(`answers-${question.id}`)
       .on('postgres_changes', 
@@ -179,7 +181,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [question.id]);
+  }, [question.id, userData?.id]);
   
   const fetchAnswers = async () => {
     try {
@@ -227,6 +229,16 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
       });
       
       setAnswers(sortedData);
+      if (userData?.id) {
+        const { data: utilData } = await supabase
+          .from('pregunta_util')
+          .select('respuesta_id')
+          .eq('pregunta_id', question.id)
+          .eq('usuario_id', userData.id)
+          .maybeSingle();
+        
+        setRespuestaUtilMarcada(!!utilData);
+      }
       
     } catch (error) {
       console.error('Error en fetchAnswers:', error);
@@ -236,68 +248,121 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
     }
   };
 
+  // Después de fetchAnswers, añade esta función
+  const verificarYaMarcoUtil = async () => {
+    if (!userData?.id) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('pregunta_util')
+        .select('respuesta_id')
+        .eq('pregunta_id', question.id)
+        .eq('usuario_id', userData.id)
+        .maybeSingle();
+      
+      if (error) throw error;
+      
+      // Si existe un registro, ya marcó una respuesta como útil
+      if (data) {
+        setRespuestaUtilMarcada(true);
+      }
+    } catch (error) {
+      console.error('Error verificando si ya marcó útil:', error);
+    }
+  };
+
   // Función para marcar una respuesta como útil
   const handleMarcarUtil = async (respuestaId, colaboradorId) => {
     try {
-        // 1. Verificar que el usuario actual sea el dueño de la pregunta
-        if (!userData?.id || userData.id !== usuarioIdPregunta) {
-            console.error('No tienes permiso para marcar esta respuesta');
-            return;
-        }
-        
-        // 2. Marcar la respuesta como aceptada
-        const { error: respuestaError } = await supabase
-            .from('respuestas')
-            .update({ es_aceptada: true })
-            .eq('id', respuestaId);
+      // 1. Verificar que el usuario actual sea el dueño de la pregunta
+      if (!userData?.id || userData.id !== usuarioIdPregunta) {
+        console.error('No tienes permiso para marcar esta respuesta');
+        return;
+      }
 
-        if (respuestaError) throw respuestaError;
-
-        // 3. Obtener información del colaborador para saber si es PRO
-        const { data: colaboradorData, error: colaboradorError } = await supabase
-            .from('perfiles')
-            .select('colaborador_pro, ganancias_colaborador')
-            .eq('id', colaboradorId)
-            .single();
-
-        if (colaboradorError) throw colaboradorError;
-
-        // 4. Calcular monto (30 o 40 centavos)
-        const montoRespuesta = colaboradorData?.colaborador_pro ? 0.40 : 0.30;
-        
-        // 5. Calcular nueva ganancia (manualmente, sin RPC)
-        const gananciaActual = parseFloat(colaboradorData?.ganancias_colaborador) || 0;
-        const nuevaGanancia = gananciaActual + montoRespuesta;
-        
-        // 6. Actualizar ganancias del colaborador
-        const { error: gananciasError } = await supabase
-            .from('perfiles')
-            .update({ 
-                ganancias_colaborador: nuevaGanancia
-            })
-            .eq('id', colaboradorId);
-
-        if (gananciasError) throw gananciasError;
-
-        // 7. Actualizar estado local
-        setAnswers(prev => 
-            prev.map(resp => 
-                resp.id === respuestaId 
-                    ? { ...resp, es_aceptada: true }
-                    : resp
-            )
-        );
-
-        // 8. Mostrar notificación (usando el showNotification pasado como prop)
+      // 2. Verificar en BD si ya marcó útil esta pregunta
+      const { data: yaMarco, error: checkError } = await supabase
+        .from('pregunta_util')
+        .select('id')
+        .eq('pregunta_id', question.id)
+        .eq('usuario_id', userData.id)
+        .maybeSingle();
+      
+      if (checkError) throw checkError;
+      
+      if (yaMarco) {
         if (showNotification) {
-            showNotification('success', `¡Gracias por marcar la respuesta como útil! El colaborador recibió tu apoyo.`);
+          showNotification('info', 'Ya marcaste una respuesta como útil en esta pregunta');
         }
+        return;
+      }
+      
+      // 3. Marcar la respuesta como aceptada
+      const { error: respuestaError } = await supabase
+        .from('respuestas')
+        .update({ es_aceptada: true })
+        .eq('id', respuestaId);
+
+      if (respuestaError) throw respuestaError;
+
+      // 4. Guardar en tabla pregunta_util
+      const { error: utilError } = await supabase
+        .from('pregunta_util')
+        .insert({
+          pregunta_id: question.id,
+          usuario_id: userData.id,
+          respuesta_id: respuestaId
+        });
+      
+      if (utilError) throw utilError;
+
+      // 5. Obtener información del colaborador para saber si es PRO
+      const { data: colaboradorData, error: colaboradorError } = await supabase
+        .from('perfiles')
+        .select('colaborador_pro, ganancias_colaborador')
+        .eq('id', colaboradorId)
+        .single();
+
+      if (colaboradorError) throw colaboradorError;
+
+      // 6. Calcular monto (30 o 40 centavos)
+      const montoRespuesta = colaboradorData?.colaborador_pro ? 0.40 : 0.30;
+      
+      // 7. Calcular nueva ganancia
+      const gananciaActual = parseFloat(colaboradorData?.ganancias_colaborador) || 0;
+      const nuevaGanancia = gananciaActual + montoRespuesta;
+      
+      // 8. Actualizar ganancias del colaborador
+      const { error: gananciasError } = await supabase
+        .from('perfiles')
+        .update({ 
+          ganancias_colaborador: nuevaGanancia
+        })
+        .eq('id', colaboradorId);
+
+      if (gananciasError) throw gananciasError;
+
+      // 9. Actualizar estado local
+      setAnswers(prev => 
+        prev.map(resp => 
+          resp.id === respuestaId 
+            ? { ...resp, es_aceptada: true }
+            : resp
+        )
+      );
+
+      setRespuestaUtilMarcada(true);
+
+      // 10. Mostrar notificación
+      if (showNotification) {
+        showNotification('success', `¡Gracias por marcar la respuesta como útil! El colaborador recibió tu apoyo.`);
+      }
 
     } catch (error) {
-        console.error('Error marcando respuesta como útil:', error);
-        if (showNotification) {
-            showNotification('error', 'Error al marcar la respuesta');
-        }
+      console.error('Error marcando respuesta como útil:', error);
+      if (showNotification) {
+        showNotification('error', 'Error al marcar la respuesta');
+      }
     }
   }; 
 
@@ -508,16 +573,21 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
                       </span>
                   )}
                   {/* AGREGAR BOTÓN "ME FUE ÚTIL" */}
-                  {!answer.es_aceptada && userData?.id === usuarioIdPregunta &&  (
-                      <button 
+                  {userData?.id === usuarioIdPregunta && (
+                    <>
+                      {answer.es_aceptada ? (
+                        <span className="util-marcado">✅ Marcada como útil</span>
+                      ) : respuestaUtilMarcada ? (
+                        <span className="util-ya-seleccionada">📌 Ya elegiste una útil</span>
+                      ) : (
+                        <button 
                           className="btn-util"
                           onClick={() => handleMarcarUtil(answer.id, answer.colaborador_id)}
-                      >
+                        >
                           👍 ¿Me fue útil?
-                      </button>
-                  )}
-                  {answer.es_aceptada && (
-                      <span className="util-marcado">✅ Marcada como útil</span>
+                        </button>
+                      )}
+                    </>
                   )}
                 </div>
                 <p className="answer-content">{answer.contenido}</p>
