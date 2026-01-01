@@ -313,7 +313,7 @@ function RegisterPage() {
                             <input
                                 type="text"
                                 id="fullName"
-                                placeholder="Juan José Peréz García"
+                                placeholder="Ejemplo: Juan José Peréz Peréz"
                                 value={formData.fullName}
                                 onChange={handleInputChange}
                                 className={errors.fullName ? 'input-error' : ''}
@@ -328,7 +328,7 @@ function RegisterPage() {
                             <input
                                 type="text"
                                 id="username"
-                                placeholder="Juan Peréz"
+                                placeholder="Ejemplo: Juan Peréz"
                                 value={formData.username}
                                 onChange={(e) => {
                                     // Solo permitir letras, números y guión bajo
@@ -523,3 +523,4 @@ function RegisterPage() {
 }
 
 export default RegisterPage
+
