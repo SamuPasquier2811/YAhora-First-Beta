@@ -80,23 +80,23 @@ function CollaboratorPage() {
   }, [filtroZona, filtroCategoria, activeTab]);
 
   // Función mejorada para problemas de teclado (sin scroll automático)
-  useEffect(() => {
-      const handleFocus = (e) => {
-          // Solo prevenir comportamiento no deseado, sin scroll
-          if (e.target.tagName === 'TEXTAREA') {
-              // Pequeño delay para estabilizar
-              setTimeout(() => {
-                  e.target.focus();
-              }, 10);
-          }
-      };
+  // useEffect(() => {
+  //     const handleFocus = (e) => {
+  //         // Solo prevenir comportamiento no deseado, sin scroll
+  //         if (e.target.tagName === 'TEXTAREA') {
+  //             // Pequeño delay para estabilizar
+  //             setTimeout(() => {
+  //                 e.target.focus();
+  //             }, 10);
+  //         }
+  //     };
 
-      document.addEventListener('focusin', handleFocus);
+  //     document.addEventListener('focusin', handleFocus);
 
-      return () => {
-          document.removeEventListener('focusin', handleFocus);
-      };
-  }, []);
+  //     return () => {
+  //         document.removeEventListener('focusin', handleFocus);
+  //     };
+  // }, []);
 
   const fetchZonasYCategorias = async () => {
     try {
@@ -578,7 +578,6 @@ function CollaboratorPage() {
               onFocus={(e) => {
                 // Forzar redibujado para prevenir bugs
                 e.target.style.transform = 'translateZ(0)';
-                e.target.style.webkitTransform = 'translateZ(0)';
               }}
               onTouchStart={(e) => {
                 // Prevenir eventos táctiles que cierran el teclado
@@ -590,10 +589,7 @@ function CollaboratorPage() {
               }}
               // Configurar el teclado correctamente
               inputMode="text"
-              autoComplete="off"
-              autoCorrect="on"
               autoCapitalize="sentences"
-              spellCheck="true"
               // Estilos inline para prevenir bugs
               style={{
                 WebkitAppearance: 'none',
