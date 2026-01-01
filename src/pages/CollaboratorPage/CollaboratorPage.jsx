@@ -575,7 +575,7 @@ function CollaboratorPage() {
               placeholder="Escribe tu respuesta aquí..."
               rows={3}
               maxLength={500}
-              {/* onFocus={(e) => {
+              /* onFocus={(e) => {
                 // Forzar redibujado para prevenir bugs
                 e.target.style.transform = 'translateZ(0)';
               }}
@@ -594,7 +594,7 @@ function CollaboratorPage() {
               style={{
                 WebkitAppearance: 'none',
                 WebkitTapHighlightColor: 'transparent',
-              }} */}
+              }} */
             />
             <div className="form-actions">
               <button
@@ -941,4 +941,5 @@ function truncateText(text, maxLength) {
 }
 
 export default CollaboratorPage;
+
 
