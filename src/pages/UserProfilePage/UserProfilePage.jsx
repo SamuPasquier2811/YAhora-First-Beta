@@ -203,7 +203,7 @@ function UserProfilePage() {
                     <div className="profile-card">
                         <div className="profile-card-header">
                             <h2>Información Personal</h2>
-                            {!editMode && (
+                            {!editMode && (userData?.tipo === 'colaborador' || userData?.tipo === 'admin') && (
                                 <button 
                                     className="btn-edit-username"
                                     onClick={() => setEditMode(true)}
