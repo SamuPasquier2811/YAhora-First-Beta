@@ -51,7 +51,7 @@ function DashboardPage() {
                         nombre_completo: user.user_metadata?.full_name || user.email.split('@')[0],
                         nombre_usuario: perfil?.nombre_usuario || '',
                         tipo: 'usuario',
-                        preguntas_disponibles: 2,
+                        preguntas_disponibles: 1,
                         plan_actual: 'gratis',
                         tiempo_respuesta_minutos: 7,
                         imagenes_permitidas: false
@@ -65,7 +65,7 @@ function DashboardPage() {
                     nombre_completo: nuevoPerfil?.nombre_completo || user.email.split('@')[0],
                     nombre_usuario: perfil?.nombre_usuario || '',
                     tipo: nuevoPerfil?.tipo || 'usuario',
-                    preguntas_disponibles: nuevoPerfil?.preguntas_disponibles || 2,
+                    preguntas_disponibles: nuevoPerfil?.preguntas_disponibles || 1,
                     plan_actual: nuevoPerfil?.plan_actual || 'gratis',
                     tiempo_respuesta_minutos: nuevoPerfil?.tiempo_respuesta_minutos || 7,
                     imagenes_permitidas: nuevoPerfil?.imagenes_permitidas || false
@@ -152,25 +152,24 @@ function DashboardPage() {
                 .single();
 
             try {
-              const response = await fetch('https://zblqjcmubbftmytpeyez.supabase.co/functions/v1/notify-new-question', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHFqY211YmJmdG15dHBleWV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjkwNzIsImV4cCI6MjA4MTkwNTA3Mn0.UoDOu2lM-wzLijiK5KGvDH_JrQqTtQ3vTLMbFq5ytwg'}`
-                },
-                body: JSON.stringify({
-                  pregunta_id: nuevaPregunta.id,
-                  contenido: nuevaPregunta.contenido
-                })
-              });
-              
-              const result = await response.json();
-              // console.log('Notificación enviada:', result);
+                const response = await fetch('https://zblqjcmubbftmytpeyez.supabase.co/functions/v1/notify-new-question', {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpibHFqY211YmJmdG15dHBleWV6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYzMjkwNzIsImV4cCI6MjA4MTkwNTA3Mn0.UoDOu2lM-wzLijiK5KGvDH_JrQqTtQ3vTLMbFq5ytwg'}`
+                    },
+                    body: JSON.stringify({
+                    pregunta_id: nuevaPregunta.id,
+                    contenido: nuevaPregunta.contenido
+                    })
+                });
+                
+                const result = await response.json();
+                console.log('Notificación enviada:', result);
             } catch (notifyError) {
-              console.warn('Error enviando notificación:', notifyError);
+                console.warn('Error enviando notificación:', notifyError);
               // NO lanzar error - que la pregunta se cree igual
             }
-            // ⬆️⬆️⬆️ FIN DEL CÓDIGO NUEVO ⬆️⬆️⬆️
 
             if (preguntaError) {
                 console.error('Error insertando pregunta:', preguntaError);
@@ -504,5 +503,3 @@ function DashboardPage() {
 }
 
 export default DashboardPage;
-
-
