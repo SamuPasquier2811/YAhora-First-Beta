@@ -1120,6 +1120,32 @@ function AdminPage() {
                       <div key={pregunta.id} className="pregunta-item">
                         <div className="pregunta-header">
                           <h4>{pregunta.contenido}</h4>
+                          {pregunta.imagen_url && (
+                            <div className="pregunta-imagen-container" style={{ margin: '1rem 0' }}>
+                              <img 
+                                src={pregunta.imagen_url} 
+                                alt="Imagen de la pregunta"
+                                style={{
+                                  maxWidth: '200px',
+                                  maxHeight: '150px',
+                                  borderRadius: '0.5rem',
+                                  border: '1px solid var(--color-border)',
+                                  cursor: 'pointer'
+                                }}
+                                onClick={() => window.open(pregunta.imagen_url, '_blank')}
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  const errorDiv = document.createElement('div');
+                                  errorDiv.style.cssText = 'color: var(--color-warning); font-size: 0.85rem; padding: 0.5rem; background: rgba(245, 158, 11, 0.1); border-radius: 0.25rem;';
+                                  errorDiv.innerHTML = '❌ Error cargando imagen';
+                                  e.target.parentElement.appendChild(errorDiv);
+                                }}
+                              />
+                              <div style={{ fontSize: '0.75rem', color: 'var(--color-text-light)', marginTop: '0.25rem' }}>
+                                Click para ampliar
+                              </div>
+                            </div>
+                          )}
                           <div className="pregunta-meta">
                             <span className="meta-item">
                               <strong>Usuario:</strong> {pregunta.usuario?.nombre_completo || pregunta.usuario?.email}
