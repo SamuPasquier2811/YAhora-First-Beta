@@ -112,10 +112,11 @@ function PrivacyPage() {
             
             {/* Footer */}
             <footer className="footer">
-                <p>© 2025 YAhora? - Respuestas rápidas para Bolivia</p>
+                <p>© 2025-2026 YAhora? - Respuestas rápidas para Bolivia</p>
             </footer>
         </div>
     );
 }
 
 export default PrivacyPage;
+
