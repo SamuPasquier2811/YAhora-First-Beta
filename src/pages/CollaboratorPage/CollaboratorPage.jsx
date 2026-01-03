@@ -189,7 +189,7 @@ function CollaboratorPage() {
       
       const ahora = new Date();
       const preguntasFiltradas = (data || []).filter(pregunta => {
-        const creadaEn = new Date(pregunta.creada_en + 'Z');
+        const creadaEn = new Date(pregunta.creada_en);
         const minutosTranscurridos = (ahora - creadaEn) / (1000 * 60);
         
         const tiempoLimiteUsuario = pregunta.perfiles?.tiempo_respuesta_minutos || 7;
@@ -383,7 +383,7 @@ function CollaboratorPage() {
     const tiempoRespuestaUsuario = pregunta.perfiles?.tiempo_respuesta_minutos || 7;
     
     const [tiempoRestante, setTiempoRestante] = useState(() => {
-      const fechaCreacion = new Date(pregunta.creada_en + 'Z');
+      const fechaCreacion = new Date(pregunta.creada_en);
       const ahora = new Date();
       const diferenciaMs = ahora - fechaCreacion;
       return Math.max(0, (tiempoRespuestaUsuario * 60) - Math.floor(diferenciaMs / 1000));
@@ -941,5 +941,6 @@ function truncateText(text, maxLength) {
 }
 
 export default CollaboratorPage;
+
 
 
