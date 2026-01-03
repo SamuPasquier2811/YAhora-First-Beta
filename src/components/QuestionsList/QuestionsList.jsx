@@ -124,7 +124,7 @@ function QuestionCard({ question, tiempoRespuestaUsuario, userData, onPreguntaCe
           return tiempoRespuestaUsuario * 60;
       }
       
-      const creadaEn = new Date(question.creada_en + 'Z');
+      const creadaEn = new Date(question.creada_en);
       const ahora = new Date();
       
       const diferenciaMs = ahora - creadaEn;
@@ -660,3 +660,4 @@ function getStatusText(status) {
 }
 
 export default QuestionsList;
+
