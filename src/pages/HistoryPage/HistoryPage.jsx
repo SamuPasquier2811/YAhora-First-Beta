@@ -63,7 +63,7 @@ function HistoryPage() {
                         contenido,
                         creada_en,
                         colaborador:perfiles (
-                            nombre_completo,
+                            nombre_usuario,
                             email
                         )
                     )
@@ -86,7 +86,7 @@ function HistoryPage() {
                     id: respuesta.id,
                     contenido: respuesta.contenido,
                     fecha: new Date(respuesta.creada_en).toLocaleDateString('es-ES'),
-                    colaborador: respuesta.colaborador?.nombre_completo || 
+                    colaborador: respuesta.colaborador?.nombre_usuario || 
                                respuesta.colaborador?.email?.split('@')[0] || 
                                'Colaborador'
                 }))
@@ -312,3 +312,4 @@ function HistoryPage() {
 }
 
 export default HistoryPage;
+
