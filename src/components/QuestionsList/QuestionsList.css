@@ -304,7 +304,7 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto; /* Divide palabras con guiones cuando es necesario */
-  max-height: 4.2em; /* Aprox 3 líneas (1.4 * 3) */
+  /* max-height: 4.2em; /* Aprox 3 líneas (1.4 * 3) */
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -668,3 +668,4 @@
   align-items: center;
   gap: 5px;
 }
+
