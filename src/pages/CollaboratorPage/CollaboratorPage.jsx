@@ -466,7 +466,7 @@ function CollaboratorPage() {
     return (
       <div className="collab-question-card">
         <div className="collab-question-header">
-          <h4>{truncateText(pregunta.contenido, 120)}</h4>
+          <h4>{pregunta.contenido}</h4>
           
           {/* MOSTRAR IMAGEN SI EXISTE */}
           {pregunta.imagen_url && (
@@ -538,7 +538,7 @@ function CollaboratorPage() {
                       </span>
                     </div>
                     <p className="collab-answer-content">
-                      {truncateText(respuesta.contenido, 150)}
+                      {respuesta.contenido}
                     </p>
                   </div>
                 ))}
@@ -906,10 +906,10 @@ function CollaboratorPage() {
                     {misRespuestas.map((respuesta) => (
                       <div key={respuesta.id} className="history-item">
                         <div className="history-question">
-                          <strong>Pregunta:</strong> {truncateText(respuesta.preguntas?.contenido || 'No disponible', 100)}
+                          <strong>Pregunta:</strong> {respuesta.preguntas?.contenido || 'No disponible'}
                         </div>
                         <div className="history-answer">
-                          <strong>Tu respuesta:</strong> {truncateText(respuesta.contenido, 150)}
+                          <strong>Tu respuesta:</strong> {respuesta.contenido}
                         </div>
                         <div className="history-meta">
                           <span className="meta-date">
@@ -936,11 +936,13 @@ function CollaboratorPage() {
 
 function truncateText(text, maxLength) {
   if (!text) return '';
+  if (maxLength <= 0) return text;
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength) + '...';
 }
 
 export default CollaboratorPage;
+
 
 
 
