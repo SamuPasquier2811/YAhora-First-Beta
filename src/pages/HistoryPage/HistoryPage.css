@@ -128,12 +128,10 @@
     font-size: 1rem;
     line-height: 1.4;
     font-weight: 500;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
 }
-
 /* Imagen compacta */
 .question-image-container {
     margin: 12px 0;
@@ -248,12 +246,10 @@
     color: var(--color-text-light);
     line-height: 1.4;
     font-size: 0.85rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: visible;
 }
-
 .no-responses {
     display: flex;
     align-items: center;
@@ -356,4 +352,5 @@
     .history-header {
         margin-bottom: 24px;
     }
+
 }
